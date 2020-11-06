@@ -6,8 +6,9 @@ import time
 
 
 notebook_url = 'https://colab.research.google.com/github/mengwangk/dl-projects/blob/master/04_03_auto_ml_1.ipynb'
-driver.get(notebook_url)
 driver = webdriver.Chrome(chrome_options=chrome_options)
+driver.get(notebook_url)
+
 # run all cells
 driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.F9)
 time.sleep(5)
