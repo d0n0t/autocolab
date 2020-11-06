@@ -1,17 +1,13 @@
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.utils import ChromeType
 from pathlib import Path
 import os
 import time   
 
-chrome_driver = Path(f"{os.getcwd()}{os.path.sep}driver{os.path.sep}chromedriver")
-driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
 
 notebook_url = 'https://colab.research.google.com/github/mengwangk/dl-projects/blob/master/04_03_auto_ml_1.ipynb'
 driver.get(notebook_url)
-
+driver = webdriver.Chrome(chrome_options=chrome_options)
 # run all cells
 driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.F9)
 time.sleep(5)
