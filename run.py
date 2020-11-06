@@ -1,11 +1,12 @@
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from pathlib import Path
 import os
 import time   
 
 chrome_driver = Path(f"{os.getcwd()}{os.path.sep}driver{os.path.sep}chromedriver")
-driver = webdriver.Chrome(chrome_driver)
+driver = webdriver.Chrome(ChromeDriverManager().install())
 
 notebook_url = 'https://colab.research.google.com/github/mengwangk/dl-projects/blob/master/04_03_auto_ml_1.ipynb'
 driver.get(notebook_url)
