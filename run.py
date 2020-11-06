@@ -1,54 +1,26 @@
-import pickle
-
-from constants import collab_url, cookies_filepath, end_flag
-from pathlib import Path
-from time import sleep
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium import webdriver
+from pathlib import Path
+import os
+import time   
 
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-wd = webdriver.Chrome('chromedriver', options=chrome_options)
+chrome_driver = Path(f"{os.getcwd()}{os.path.sep}driver{os.path.sep}chromedriver")
+driver = webdriver.Chrome(chrome_driver)
 
-# load page
-wd.get(collab_url)
+notebook_url = 'https://colab.research.google.com/github/mengwangk/dl-projects/blob/master/04_03_auto_ml_1.ipynb'
+driver.get(notebook_url)
 
-# add cookies if exists
-if Path(cookies_filepath).exists():
-    for cookie in pickle.load(open(cookies_filepath, "rb")):
-        # 'expiry' cookie is causing problem after Chrome 74
-        # https://github.com/jimmy927/requestium/commit/596db69d18926981df23988e96ca33c361badb40
-        cookie.pop('expiry', None)
-        wd.add_cookie(cookie)
-else:
-    print('start auth.py first !')
+# run all cells
+driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.F9)
+time.sleep(5)
 
-# reload page, expand cells, and start all cells
-wd.get(collab_url)
-sleep(10)
-ActionChains(wd).key_down(Keys.CONTROL).send_keys('[').perform()
-sleep(3)
-ActionChains(wd).key_down(Keys.CONTROL).key_down(Keys.F9).perform()
-sleep(10)
+# click to stay connected
+start_time = time.time()
+current_time = time.time()
+max_time = 11*59*60 #12hours
 
-# wait for the last cell to execute
-while True:
-    cells = wd.find_element_by_class_name('notebook-cell-list')
-    for frame in cells.find_elements_by_tag_name('iframe'):
-        wd.switch_to.frame(frame)
-        for output in wd.find_elements_by_tag_name('pre'):
-            if end_flag in output.text:
-                wd.switch_to.default_content()
-                ActionChains(wd).key_down(Keys.CONTROL).send_keys(']').perform()
-                sleep(5)
-                ActionChains(wd).key_down(Keys.CONTROL).send_keys('s').perform()
-                sleep(5)
-                wd.close()
-                wd.quit()
-        wd.switch_to.default_content()
-    sleep(5)
+while (current_time - start_time) < max_time:
+    webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+    driver.find_element_by_xpath('//*[@id="top-toolbar"]/colab-connect-button').click()
+    time.sleep(30)
+    current_time = time.time()
