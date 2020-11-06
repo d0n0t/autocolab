@@ -7,7 +7,7 @@ import time
 
 notebook_url = 'https://colab.research.google.com/github/mengwangk/dl-projects/blob/master/04_03_auto_ml_1.ipynb'
 chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = Config.GOOGLE_CHROME_BIN
+    chrome_options.binary_location = ('bin/sh')
     chrome_options.add_argument('--ignore-certificate-errors')
     chrome_options.add_argument("--test-type")
     chrome_options.add_argument("--headless")
