@@ -13,8 +13,7 @@
       {
          "url":"heroku/python"
       }
-   {"url": "https://github.com/rking32/heroku-buildpack-google-chrome"},
-        {"url": "https://github.com/rking32/heroku-buildpack-chromedriver"},
+  
    ],
    "formation": {
         "worker": {
