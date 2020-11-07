@@ -35,3 +35,4 @@ $(ColorBlue 'What do you want to order?:') "
 			*) echo -e $red"Wrong option."$clear; WrongCommand;;
         esac
 }
+menu
