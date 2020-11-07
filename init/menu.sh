@@ -22,16 +22,16 @@ ColorBlue(){
 }
 echo -ne "
 ShaKaaL Restaurants
-$(ColorGreen '1)') Login In Google
-$(ColorGreen '2)') Run Colaboratory
-$(ColorGreen '0)') Exit
-$(ColorBlue 'What do you want to order?:') "
+$(ColorBlue '1)') Login In Google
+$(ColorBlue '2)') Run Colaboratory
+$(ColorBlue '3)') Exit
+$(ColorGreen 'What do you want to order?:') "
         read a
         case $a in
 	        1) Log_in ; menu ;;
 	        2) Co_lab ; menu ;;
-			0) exit 0 ;;
-			*) echo -e $red"Wrong option."$clear; WrongCommand;;
+			3) exit 0 ;;
+			*) echo -e $ColorBlue"Wrong option."$clear; WrongCommand;;
         esac
 }
 menu
