@@ -30,7 +30,7 @@ $(ColorGreen 'What do you want to order?:') "
         case $a in
 	        1) Log_in ; menu ;;
 	        2) Co_lab ; menu ;;
-			3) exit 0 ;;
+			3) exit 0 ; menu ;;
 			*) echo -e $ColorBlue"Wrong option."$clear; WrongCommand;;
         esac
 }
