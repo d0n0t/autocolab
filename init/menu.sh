@@ -1,4 +1,3 @@
-#!/bin/bash
 function Log_in() {
     echo ""
 	echo "Heading to kitchen !!"
