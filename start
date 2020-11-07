@@ -1,1 +1,1 @@
-bash init/menu.sh
+python init/menu.py
